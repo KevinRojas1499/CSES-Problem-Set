@@ -15,13 +15,19 @@ int main(){
 		cin>>c[i];
 	}
 	dp[0] = 1;
-	for(int i = 1; i<= x; i++){
-		for(int j = 0; j<n; j++){
+	
+	/* 
+	 * By switching the order of the loops
+	 * we make sure that dp[i] only stores combinations
+	 * that have used the first J coins
+	 */
+	for(int j = 0; j<n; j++){
+		for(int i = 1; i<= x; i++){
 			if(i-c[j] >= 0){
 				dp[i]+=dp[i-c[j]];
 				dp[i]%=MOD;
 			}
 		}
 	}
-	cout<< dp[x];
+	cout<< (dp[x]%MOD+MOD)%MOD;
 }
