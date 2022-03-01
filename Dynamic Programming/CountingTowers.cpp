@@ -1,26 +1,25 @@
 #include <bits/stdc++.h>
 #define ll long long 
-
+ 
 using namespace std;
-
+ 
 const ll MOD = 1e9+7, mxN = 1e6;
-
+ 
 int main(){
 	ll t,n;
-	ll dp[mxN+5], accum[mxN+5];
-	cin>>t;
-	accum[0] = 0;
-	dp[1] = 2;
-	accum[1] = 2;
-	for(int i = 2; i<mxN+2; i++){
-		dp[i] = 2*accum[i-1];
-		accum[i] = accum[i-1]+dp[i];
+	ll f[mxN+5][2];
+	f[1][0] = 1;
+	f[1][1] = 1;
+	for(int i  = 2; i<=mxN; i++){
+		f[i][0] = ((2*f[i-1][0])%MOD+f[i-1][1])%MOD;
+		f[i][1] = (f[i-1][0]+(4*f[i-1][1])%MOD)%MOD;
 	}
+	
+	cin>>t;
 	while(t--){
 		cin>>n;
-		cout<<accum[n]<<"\n";
+		ll res = (f[n][0]+f[n][1])%MOD;
+		res= (res+MOD)%MOD;
+		cout<<res<<"\n";
 	}
 }
-
-
-
