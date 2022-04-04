@@ -72,7 +72,7 @@ int main(){
     else{
         cout<<"IMPOSSIBLE\n";
     }
-
+    
     
 
 }
