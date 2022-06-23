@@ -11,6 +11,8 @@ bool isIn(ll i, ll j){
 }
 
 int main(){
+	cin.tie(0);
+	ios_base::sync_with_stdio(false);
 	cin>>n;
 	
 	char mat[n][n];
