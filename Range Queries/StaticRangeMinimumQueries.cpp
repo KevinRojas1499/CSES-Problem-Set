@@ -11,9 +11,6 @@ int main(){
     ll n,q,a,b;
     cin>>n>>q;
     vector<ll> x(n);
-    for(int i = 0; i<mxN; i++){
-            sparse[i][0] = INF;
-    }
     for(int i = 0; i<n; i++) {
         cin>>x[i];
         sparse[i][0] = x[i];
@@ -21,15 +18,13 @@ int main(){
 
     for (int j = 1; j < 20; j++){
         for (int i = 0; i + (1 << j) <= n; i++){
-            sparse[i][j] = min(sparse[i][j-1],sparse[i+(1 << (j-1))+1][j-1]);
+            sparse[i][j] = min(sparse[i][j-1],sparse[i+(1 << (j-1))][j-1]);
         }
     }
     for(int i = 0; i<q; i++){
         cin>>a>>b;
         a--;b--;
         ll p = log2(b-a+1);
-        cout<<"P "<<p<<"\n";
-        cout<<sparse[a][p]<<" "<<b-(1<<p)+1<<" "<<sparse[b-(1<<p)+1][p]<<"\n";
         cout<<min(sparse[a][p],sparse[b-(1<<p)+1][p])<<"\n";
     }
 }
