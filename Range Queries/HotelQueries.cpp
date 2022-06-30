@@ -26,11 +26,11 @@ class SegmentTree {
             }
         }
 
-        ll getMax(ll v, ll tl, ll tr, ll l, ll r){
+        ll query(ll v, ll tl, ll tr, ll l, ll r){
             if(l > r) return NEGINF;
             if(tl == l && tr == r) return st[v];
             ll tm = tl + (tr-tl)/2;
-            return max(getMax(2*v,tl,tm,l,min(r,tm)),getMax(2*v+1,tm+1,tr, max(l,tm+1),r));
+            return max(query(2*v,tl,tm,l,min(r,tm)),query(2*v+1,tm+1,tr, max(l,tm+1),r));
         }
 
         void update(ll v, ll tl, ll tr, ll pos, ll val){
@@ -54,7 +54,7 @@ ll findRoom(ll target, SegmentTree & st){
     ll ans = 0;
     while(a<=b){
         ll c = a+(b-a)/2;
-        ll m = st.getMax(1,0,n-1,0,c);
+        ll m = st.query(1,0,n-1,0,c);
         if(m>= target){
             ans = c+1;
             b = c-1;
@@ -76,7 +76,7 @@ int main () {
         cin>>b;
         ll idx = findRoom(b,st);
         cout<<idx<<" ";
-        if(idx > 0) st.update(1,0,n-1,idx-1,st.getMax(1,0,n-1,idx-1,idx-1)-b);
+        if(idx > 0) st.update(1,0,n-1,idx-1,st.query(1,0,n-1,idx-1,idx-1)-b);
     }
     cout<<"\n";
 }
